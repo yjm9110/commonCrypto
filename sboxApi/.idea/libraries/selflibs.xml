@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="selflibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/bcprov-jdk16-1.46.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jcpabe.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jpbc-api-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jpbc-crypto-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jpbc-plaf-2.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

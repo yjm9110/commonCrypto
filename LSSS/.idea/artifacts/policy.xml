@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="policy">
+    <output-path>$PROJECT_DIR$/out/artifacts/policy</output-path>
+    <root id="archive" name="policy.jar">
+      <element id="module-output" name="policy" />
+    </root>
+  </artifact>
+</component>
