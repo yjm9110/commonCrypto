@@ -14,6 +14,7 @@ import jcpabe.module.key.ABEMasterKey;
 import jcpabe.module.key.ABEUserDK;
 import jcpabe.module.key.ABEUserTK;
 import jcpabe.util.ABEUtil;
+import jcpabe.util.PrintUtil;
 
 import java.io.File;
 import java.util.*;
@@ -75,7 +76,7 @@ public class APIs {
         return res;
     }
 
-    public static String enc(String pp, String m, int aes, String policy){
+    public static String enc(String pp, int aes, String policy, String m){
         PublicParameters.newInstanceFromPublicParams(decode(pp));
 
         AccessPolicyTree tree = new AccessPolicyTree(policy);
@@ -106,7 +107,7 @@ public class APIs {
         return encode(transformedText.toBytes());
     }
 
-    public static String dec(String pp, String aescipher, String abetcipher, String dk){
+    public static String dec(String pp, String dk, String abetcipher, String aescipher){
         PublicParameters.newInstanceFromPublicParams(decode(pp));
         ABEUserDK DK = ABEUserDK.newInstance(decode(dk));
         ODABETransformed transformedText = ODABETransformed.newInstance(decode(abetcipher));
@@ -145,18 +146,19 @@ public class APIs {
 
         //enc
 //        System.out.println(attrs.replace(',','&'));
-        temps = enc(pp, "Hello World!", 128, attrs.replace(',','&')).split(",");
+        temps = enc(pp, 128, attrs.replace(',','&'), "Hello World!").split(",");
         String abec = temps[0];
         String aesc = temps[1];
 
         //transform
+
         String tranc = transform(pp, tk, abec);
 
         //dec
-        String dec = dec(pp, aesc, tranc, dk);
+        String dec = dec(pp, dk, tranc, aesc);
         System.out.println(dec);
 
-        temps = enc(pp, "Hello World!", 128, attrs.replace(',','&')).split(",");
+        temps = enc(pp, 128, attrs.replace(',','+'), "Hello World!").split(",");
         abec = temps[0];
         aesc = temps[1];
 
@@ -164,7 +166,7 @@ public class APIs {
         tranc = transform(pp, tk, abec);
 
         //dec
-        dec = dec(pp, aesc, tranc, dk);
+        dec = dec(pp, dk, tranc, aesc);
         System.out.println(dec);
 
     }
