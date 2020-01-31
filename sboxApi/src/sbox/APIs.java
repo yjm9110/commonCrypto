@@ -16,7 +16,7 @@ import jcpabe.module.key.ABEUserTK;
 import jcpabe.util.ABEUtil;
 import jcpabe.util.PrintUtil;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 public class APIs {
@@ -93,6 +93,26 @@ public class APIs {
         return res;
     }
 
+    public static String enc(String pp, int aes, String policy, String file, String cfile) throws IOException {
+        PublicParameters.newInstanceFromPublicParams(decode(pp));
+
+        AccessPolicyTree tree = new AccessPolicyTree(policy);
+        ODABEEncrypt encrypt = new ODABEEncrypt();
+        encrypt.setAccessPolicyTree(tree);
+        encrypt.setAESBit(aes);
+
+        FileInputStream fis = new FileInputStream(file);
+        FileOutputStream fos = new FileOutputStream(cfile);
+        ODABECipher ciphertext = encrypt.encrypt(fis, fos);
+
+        fos.flush();
+        fos.close();
+        fis.close();
+
+        String res = encode(ciphertext.toBytes());
+        return res;
+    }
+
     public static String transform(String pp, String tk, String cipher){
         PublicParameters.newInstanceFromPublicParams(decode(pp));
         ABEUserTK TK = ABEUserTK.newInstance(decode(tk));
@@ -123,6 +143,27 @@ public class APIs {
         return new String(res);
     }
 
+    public static String dec(String pp, String dk, String abetcipher, String file, String mfile) throws IOException {
+        PublicParameters.newInstanceFromPublicParams(decode(pp));
+        ABEUserDK DK = ABEUserDK.newInstance(decode(dk));
+        ODABETransformed transformedText = ODABETransformed.newInstance(decode(abetcipher));
+
+        ODABEDecrypt decrypt = new ODABEDecrypt();
+        decrypt.setUserDK(DK);
+        decrypt.setCiphertext(transformedText);
+
+        FileInputStream fis = new FileInputStream(file);
+        FileOutputStream fos = new FileOutputStream(mfile);
+
+        decrypt.decrypt(fis, fos);
+
+        fos.flush();
+        fos.close();
+        fis.close();
+
+        return "Decrypt success!";
+    }
+
     public static String encode(byte[] src){
         return new String(Base64.getEncoder().encode(src));
     }
@@ -131,7 +172,7 @@ public class APIs {
         return Base64.getDecoder().decode(src.getBytes());
     }
 
-    public static void test(String[] args){
+    public static void test(){
         String pp = init("SS512");
 
         //gen attrs
@@ -171,8 +212,35 @@ public class APIs {
 
     }
 
-    public static void main(String[] args){
-        test(args);
+    public static void test2() throws IOException {
+        String pp = init("SS512");
+
+        //gen attrs
+        String attrs = genABEUUID(pp) + "," + genABEUUID(pp);
+//        System.out.println(attrs);
+
+        //gen keys
+        String temp = genUKs(pp, attrs);
+        String[] temps = temp.split(",");
+        String dk = temps[0];
+        String tk = temps[1];
+
+        //enc
+//        System.out.println(attrs.replace(',','&'));
+        String abec = enc(pp, 128, attrs.replace(',','&'), "files/m.txt", "files/c.aes.txt");
+
+        //transform
+
+        String tranc = transform(pp, tk, abec);
+
+        //dec
+        dec(pp, dk, tranc, "files/c.aes.txt", "files/m.dec.txt");
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        test2();
+        test();
     }
 
 }

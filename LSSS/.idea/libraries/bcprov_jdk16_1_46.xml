@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="bcprov-jdk16-1.46">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/bcprov-jdk16-1.46.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/gnu-crypto.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jcpabe.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jna-3.2.5.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jpbc-api-2.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jpbc-crypto-2.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jpbc-pbc-2.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/jpbc-plaf-2.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../jpbcLibs/commenlib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/bcprov-jdk16-1.46.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/commenlib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/gnu-crypto.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jcpabe.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jna-3.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jpbc-api-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jpbc-crypto-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jpbc-pbc-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jpbcLibs/jpbc-plaf-2.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
